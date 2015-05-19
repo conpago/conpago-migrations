@@ -1,0 +1,28 @@
+{
+	"name": "saigon/conpago-migrations",
+	"description": "Conpago migrations module.",
+	"type": "library",
+	"license": "MIT",
+	"authors": [
+		{
+			"name": "Bartosz Gołek",
+			"email": "bartosz.golek@gmail.com",
+			"homepage": "http://bartosz.golek.biz"
+		}
+	],
+	"require": {
+		"saigon/conpago-migrations-contract": "dev-default"
+	},
+	"require-dev": {
+		"pdepend/pdepend": "*",
+		"phpmd/phpmd": "*",
+		"squizlabs/php_codesniffer": "*",
+		"sebastian/phpcpd": "*",
+		"phpunit/phpunit": "4.*"
+	},
+	"autoload": {
+		"psr-0": {
+			"Saigon\\Conpago\\Migrations\\": "src/"
+		}
+	}
+}
