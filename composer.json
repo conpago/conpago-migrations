@@ -11,7 +11,8 @@
 		}
 	],
 	"require": {
-		"saigon/conpago-migrations-contract": "dev-default"
+		"saigon/conpago-migrations-contract": "dev-default",
+		"saigon/conpago-console-contract": "dev-default"
 	},
 	"require-dev": {
 		"pdepend/pdepend": "*",
