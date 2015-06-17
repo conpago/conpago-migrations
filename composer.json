@@ -1,5 +1,5 @@
 {
-	"name": "saigon/conpago-migrations",
+	"name": "conpago/conpago-migrations",
 	"description": "Conpago migrations module.",
 	"type": "library",
 	"license": "MIT",
@@ -11,8 +11,8 @@
 		}
 	],
 	"require": {
-		"saigon/conpago-migrations-contract": "dev-default",
-		"saigon/conpago-console-contract": "dev-default"
+		"conpago/conpago-migrations-contract": "dev-default",
+		"conpago/conpago-console-contract": "dev-default"
 	},
 	"require-dev": {
 		"pdepend/pdepend": "*",
@@ -23,7 +23,7 @@
 	},
 	"autoload": {
 		"psr-0": {
-			"Saigon\\Conpago\\Migrations\\": "src/"
+			"Conpago\\Migrations\\": "src/"
 		}
 	}
 }

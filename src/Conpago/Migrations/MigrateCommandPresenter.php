@@ -6,11 +6,11 @@
 	 * Time: 23:23
 	 */
 
-	namespace Saigon\Conpago\Migrations;
+	namespace Conpago\Migrations;
 
 
-	use Saigon\Conpago\Console\Contract\Presentation\IConsolePresenter;
-	use Saigon\Conpago\Migrations\Contract\IMigrateCommandPresenter;
+	use Conpago\Console\Contract\Presentation\IConsolePresenter;
+	use Conpago\Migrations\Contract\IMigrateCommandPresenter;
 
 	class MigrateCommandPresenter implements IMigrateCommandPresenter {
 

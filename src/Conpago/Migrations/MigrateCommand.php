@@ -6,11 +6,11 @@
 	 * Time: 07:56
 	 */
 
-	namespace Saigon\Conpago\Migrations;
+	namespace Conpago\Migrations;
 
-	use Saigon\Conpago\Console\Contract\ICommand;
-	use Saigon\Conpago\Migrations\Contract\IMigrateCommandPresenter;
-	use Saigon\Conpago\Migrations\Contract\IMigration;
+	use Conpago\Console\Contract\ICommand;
+	use Conpago\Migrations\Contract\IMigrateCommandPresenter;
+	use Conpago\Migrations\Contract\IMigration;
 
 	class MigrateCommand implements ICommand
 	{
@@ -18,8 +18,8 @@
 		 * @param IMigration[] $migrations
 		 * @param IMigrateCommandPresenter $presenter
 		 *
-		 * @inject Saigon\Conpago\Migrations\Contract\IMigration $migrations
-		 * @inject Saigon\Conpago\Migrations\Contract\IMigrateCommandPresenter $presenter
+		 * @inject Conpago\Migrations\Contract\IMigration $migrations
+		 * @inject Conpago\Migrations\Contract\IMigrateCommandPresenter $presenter
 		 */
 		function __construct(
 			array $migrations,
