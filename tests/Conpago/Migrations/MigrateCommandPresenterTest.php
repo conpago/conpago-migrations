@@ -9,12 +9,14 @@
 	namespace Conpago\Migrations;
 
 
-	class MigrateCommandPresenterTest extends \PHPUnit_Framework_TestCase {
+	use Conpago\Console\Contract\Presentation\IConsolePresenter;
+
+    class MigrateCommandPresenterTest extends \PHPUnit_Framework_TestCase {
 
 		public function testMigrationStarted() {
 			$count = 1;
 
-			$consolePresenter = $this->getMock('Conpago\Console\Contract\Presentation\IConsolePresenter');
+			$consolePresenter = $this->createMock(IConsolePresenter::class);
 			$consolePresenter->expects($this->once())->method('write')->with($this->equalTo("Running migrations (".$count.")..."));
 
 			$migrateCommandPresenter = new MigrateCommandPresenter($consolePresenter);
@@ -22,7 +24,7 @@
 		}
 
 		public function testMigrationEnded() {
-			$consolePresenter = $this->getMock('Conpago\Console\Contract\Presentation\IConsolePresenter');
+            $consolePresenter = $this->createMock(IConsolePresenter::class);
 			$consolePresenter->expects($this->any())->method('write')->with($this->equalTo("Running migrations done."));
 
 			$migrateCommandPresenter = new MigrateCommandPresenter($consolePresenter);
@@ -32,7 +34,7 @@
 		public function testRunningMigration() {
 			$number = 1;
 			$count = 1;
-			$consolePresenter = $this->getMock('Conpago\Console\Contract\Presentation\IConsolePresenter');
+            $consolePresenter = $this->createMock(IConsolePresenter::class);
 			$consolePresenter->expects($this->any())->method('write')->with($this->equalTo("Running migration ".$number." of ". $count ."."));
 
 			$migrateCommandPresenter = new MigrateCommandPresenter($consolePresenter);

@@ -53,6 +53,6 @@
 		 */
 		private function runMigration($number, $migration ) {
 			$this->presenter->runningMigration($number, count($this->migrations));
-			$migration->up();
+			$migration->apply();
 		}
 	}

@@ -28,9 +28,6 @@
     <filter>
         <whitelist processUncoveredFilesFromWhitelist="true">
             <directory suffix=".php">src</directory>
-            <exclude>
-                <file>src/Conpago/Auth/Session.php</file>
-            </exclude>
         </whitelist>
     </filter>
 </phpunit>
