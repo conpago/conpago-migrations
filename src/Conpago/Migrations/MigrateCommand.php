@@ -1,58 +1,51 @@
 <?php
-	/**
-	 * Created by PhpStorm.
-	 * User: Bartosz Gołek
-	 * Date: 22.01.14
-	 * Time: 07:56
-	 */
+namespace Conpago\Migrations;
 
-	namespace Conpago\Migrations;
+use Conpago\Console\Contract\ICommand;
+use Conpago\Migrations\Contract\IMigrateCommandPresenter;
+use Conpago\Migrations\Contract\IMigration;
 
-	use Conpago\Console\Contract\ICommand;
-	use Conpago\Migrations\Contract\IMigrateCommandPresenter;
-	use Conpago\Migrations\Contract\IMigration;
+class MigrateCommand implements ICommand
+{
+    /** @var IMigration[] */
+    private $migrations;
 
-	class MigrateCommand implements ICommand
-	{
-		/**
-		 * @param IMigration[] $migrations
-		 * @param IMigrateCommandPresenter $presenter
-		 *
-		 * @inject Conpago\Migrations\Contract\IMigration $migrations
-		 * @inject Conpago\Migrations\Contract\IMigrateCommandPresenter $presenter
-		 */
-		function __construct(
-			array $migrations,
-			IMigrateCommandPresenter $presenter)
-		{
-			$this->migrations = $migrations;
-			$this->presenter = $presenter;
-		}
+    /** @var IMigrateCommandPresenter */
+    protected $presenter;
 
-		function execute()
-		{
-			$this->presenter->migrationStarted(count($this->migrations));
-			$i = 1;
-			foreach($this->migrations as $migration) {
-				$this->runMigration($i++, $migration);
-			}
-			$this->presenter->migrationEnded();
-		}
+    /**
+     * @param IMigration[] $migrations
+     * @param IMigrateCommandPresenter $presenter
+     *
+     * @inject Conpago\Migrations\Contract\IMigration $migrations
+     * @inject Conpago\Migrations\Contract\IMigrateCommandPresenter $presenter
+     */
+    public function __construct(
+        array $migrations,
+        IMigrateCommandPresenter $presenter
+    ) {
 
-		/**
-		 * @var IMigration[]
-		 */
-		private $migrations;
+        $this->migrations = $migrations;
+        $this->presenter = $presenter;
+    }
 
-		protected $presenter;
+    public function execute(): void
+    {
+        $this->presenter->migrationStarted(count($this->migrations));
+        $index = 1;
+        foreach ($this->migrations as $migration) {
+            $this->runMigration($index++, $migration);
+        }
+        $this->presenter->migrationEnded();
+    }
 
-		/**
-		 * @param int $number
-		 * @param IMigration $migration
-		 *
-		 */
-		private function runMigration($number, $migration ) {
-			$this->presenter->runningMigration($number, count($this->migrations));
-			$migration->apply();
-		}
-	}
+    /**
+     * @param int $number
+     * @param IMigration $migration
+     */
+    private function runMigration(int $number, IMigration $migration)
+    {
+        $this->presenter->runningMigration($number, count($this->migrations));
+        $migration->apply();
+    }
+}

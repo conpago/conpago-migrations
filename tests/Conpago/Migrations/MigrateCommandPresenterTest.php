@@ -1,43 +1,53 @@
 <?php
-	/**
-	 * Created by PhpStorm.
-	 * User: bg
-	 * Date: 19.05.15
-	 * Time: 23:23
-	 */
+namespace Conpago\Migrations;
 
-	namespace Conpago\Migrations;
+use Conpago\Console\Contract\Presentation\IConsolePresenter;
+use PHPUnit\Framework\TestCase;
+use PHPUnit_Framework_MockObject_MockObject as MockObject;
 
+class MigrateCommandPresenterTest extends TestCase
+{
+    /** @var MigrateCommandPresenter */
+    private $migrateCommandPresenter;
 
-	use Conpago\Console\Contract\Presentation\IConsolePresenter;
+    /** @var MockObject| IConsolePresenter */
+    private $consolePresenterMock;
 
-    class MigrateCommandPresenterTest extends \PHPUnit_Framework_TestCase {
+    public function setUp(): void
+    {
+        $this->consolePresenterMock = $this->createMock(IConsolePresenter::class);
+        $this->migrateCommandPresenter = new MigrateCommandPresenter($this->consolePresenterMock);
+    }
 
-		public function testMigrationStarted() {
-			$count = 1;
+    public function testMigrationStarted()
+    {
+        $this->consolePresenterMock
+            ->expects($this->once())
+            ->method('write')
+            ->with($this->equalTo("Running migrations (1)..."));
 
-			$consolePresenter = $this->createMock(IConsolePresenter::class);
-			$consolePresenter->expects($this->once())->method('write')->with($this->equalTo("Running migrations (".$count.")..."));
+        $this->migrateCommandPresenter->migrationStarted(1);
+    }
 
-			$migrateCommandPresenter = new MigrateCommandPresenter($consolePresenter);
-			$migrateCommandPresenter->migrationStarted($count);
-		}
+    public function testMigrationEnded()
+    {
+        $this->consolePresenterMock
+            ->expects($this->once())
+            ->method('write')
+            ->with($this->equalTo("Running migrations done."));
 
-		public function testMigrationEnded() {
-            $consolePresenter = $this->createMock(IConsolePresenter::class);
-			$consolePresenter->expects($this->any())->method('write')->with($this->equalTo("Running migrations done."));
+        $this->migrateCommandPresenter->migrationEnded();
+    }
 
-			$migrateCommandPresenter = new MigrateCommandPresenter($consolePresenter);
-			$migrateCommandPresenter->migrationEnded();
-		}
+    public function testRunningMigration()
+    {
+        $number = 1;
+        $count = 1;
+        $this->consolePresenterMock
+            ->expects($this->once())
+            ->method('write')
+            ->with($this->equalTo("Running migration ".$number." of ". $count ."."));
 
-		public function testRunningMigration() {
-			$number = 1;
-			$count = 1;
-            $consolePresenter = $this->createMock(IConsolePresenter::class);
-			$consolePresenter->expects($this->any())->method('write')->with($this->equalTo("Running migration ".$number." of ". $count ."."));
-
-			$migrateCommandPresenter = new MigrateCommandPresenter($consolePresenter);
-			$migrateCommandPresenter->runningMigration($number, $count);
-		}
-	}
+        $this->migrateCommandPresenter->runningMigration($number, $count);
+    }
+}
